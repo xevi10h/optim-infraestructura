@@ -3,11 +3,11 @@
 import React, { useState } from 'react';
 import { useTranslations } from 'next-intl';
 import { Search, FileText, Eye, Edit3, Trash2 } from 'lucide-react';
-import { useReports } from '@/contexts/ReportsContext';
+import { useReportsStore } from '@/stores/useReportsStore';
 
 export const SearchReportsView: React.FC = () => {
 	const t = useTranslations();
-	const { reports } = useReports();
+	const reports = useReportsStore((state) => state.reports);
 	const [searchQuery, setSearchQuery] = useState('');
 
 	const filteredReports = reports.filter(

@@ -10,7 +10,10 @@ export const LanguageSwitcher: React.FC = () => {
 	const currentLocale = useLocale();
 
 	const handleLanguageChange = (newLocale: string) => {
-		const newPath = pathname.replace(`/${currentLocale}`, `/${newLocale}`);
+		// Remove the current locale from the pathname and add the new one
+		const segments = pathname.split('/');
+		segments[1] = newLocale;
+		const newPath = segments.join('/');
 		router.push(newPath);
 	};
 

@@ -3,7 +3,7 @@
 import React from 'react';
 import { useTranslations } from 'next-intl';
 import { Plus, Search, FileText, X } from 'lucide-react';
-import { useReports } from '@/contexts/ReportsContext';
+import { useReportsStore } from '@/stores/useReportsStore';
 import type { ViewType } from '@/types';
 
 interface SidebarProps {
@@ -20,7 +20,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
 	onToggle,
 }) => {
 	const t = useTranslations();
-	const { reports } = useReports();
+	const reports = useReportsStore((state) => state.reports);
 
 	return (
 		<div

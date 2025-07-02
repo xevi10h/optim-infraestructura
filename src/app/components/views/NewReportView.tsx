@@ -11,11 +11,11 @@ import {
 	Download,
 } from 'lucide-react';
 import { ChatInterface } from '../ChatInterface';
-import { useReports } from '@/contexts/ReportsContext';
+import { useReportsStore } from '@/stores/useReportsStore';
 
 export const NewReportView: React.FC = () => {
 	const t = useTranslations();
-	const { addReport, clearMessages } = useReports();
+	const { addReport, clearMessages } = useReportsStore();
 	const [referenceNumber, setReferenceNumber] = useState('');
 	const [reportTitle, setReportTitle] = useState('');
 	const [generatedContent, setGeneratedContent] = useState('');

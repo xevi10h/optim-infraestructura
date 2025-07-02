@@ -3,7 +3,7 @@
 import React from 'react';
 import { useTranslations } from 'next-intl';
 import { Edit3, Download } from 'lucide-react';
-import { useReports } from '@/contexts/ReportsContext';
+import { useReportsStore } from '@/stores/useReportsStore';
 import { generateMockReport } from '@/utils/reportGenerator';
 
 interface ReportDetailViewProps {
@@ -14,7 +14,7 @@ export const ReportDetailView: React.FC<ReportDetailViewProps> = ({
 	reportId,
 }) => {
 	const t = useTranslations();
-	const { getReportById } = useReports();
+	const getReportById = useReportsStore((state) => state.getReportById);
 
 	const report = getReportById(reportId);
 

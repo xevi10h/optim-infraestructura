@@ -6,7 +6,6 @@ import { Header } from './Header';
 import { NewReportView } from './views/NewReportView';
 import { SearchReportsView } from './views/SearchReportsView';
 import { ReportDetailView } from './views/ReportDetailView';
-import { ReportsProvider } from '@/contexts/ReportsContext';
 import type { ViewType } from '@/types';
 
 export const ReportsApp: React.FC = () => {
@@ -24,21 +23,19 @@ export const ReportsApp: React.FC = () => {
 	};
 
 	return (
-		<ReportsProvider>
-			<div className="flex h-screen bg-gray-50">
-				<Sidebar
-					currentView={currentView}
-					onViewChange={setCurrentView}
-					isOpen={sidebarOpen}
-					onToggle={setSidebarOpen}
-				/>
+		<div className="flex h-screen bg-gray-50">
+			<Sidebar
+				currentView={currentView}
+				onViewChange={setCurrentView}
+				isOpen={sidebarOpen}
+				onToggle={setSidebarOpen}
+			/>
 
-				<div className="flex-1 flex flex-col overflow-hidden">
-					<Header onToggleSidebar={() => setSidebarOpen(!sidebarOpen)} />
+			<div className="flex-1 flex flex-col overflow-hidden">
+				<Header onToggleSidebar={() => setSidebarOpen(!sidebarOpen)} />
 
-					<main className="flex-1 overflow-y-auto">{renderCurrentView()}</main>
-				</div>
+				<main className="flex-1 overflow-y-auto">{renderCurrentView()}</main>
 			</div>
-		</ReportsProvider>
+		</div>
 	);
 };

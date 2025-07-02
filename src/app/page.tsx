@@ -1,5 +1,6 @@
-import { ReportsApp } from './components/ReportsApp';
+import { redirect } from 'next/navigation';
 
-export default function HomePage() {
-	return <ReportsApp />;
+export default function RootPage() {
+	// Redirect to default locale
+	redirect('/es');
 }

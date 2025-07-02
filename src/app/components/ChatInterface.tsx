@@ -3,7 +3,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { useTranslations } from 'next-intl';
 import { Send, MessageSquare } from 'lucide-react';
-import { useReports } from '@/contexts/ReportsContext';
+import { useReportsStore } from '@/stores/useReportsStore';
 import { generateMockReport } from '@/utils/reportGenerator';
 
 interface ChatInterfaceProps {
@@ -14,7 +14,8 @@ export const ChatInterface: React.FC<ChatInterfaceProps> = ({
 	onContentGenerated,
 }) => {
 	const t = useTranslations();
-	const { messages, addMessage, isLoading, setIsLoading } = useReports();
+	const { messages, addMessage, isLoading, setIsLoading, clearMessages } =
+		useReportsStore();
 	const [inputMessage, setInputMessage] = useState('');
 	const messagesEndRef = useRef<HTMLDivElement>(null);
 
