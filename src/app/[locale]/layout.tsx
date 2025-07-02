@@ -36,6 +36,7 @@ export default async function LocaleLayout({
 		notFound();
 	}
 
+	// Obtener los mensajes para el locale actual
 	const messages = await getMessages();
 
 	return (
