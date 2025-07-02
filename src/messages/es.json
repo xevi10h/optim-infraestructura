@@ -1,0 +1,65 @@
+{
+	"common": {
+		"save": "Guardar",
+		"cancel": "Cancelar",
+		"delete": "Eliminar",
+		"edit": "Editar",
+		"view": "Ver",
+		"search": "Buscar",
+		"loading": "Cargando...",
+		"copy": "Copiar",
+		"download": "Descargar",
+		"clear": "Limpiar"
+	},
+	"navigation": {
+		"newReport": "Nuevo Informe",
+		"searchReports": "Buscar Informes",
+		"recentReports": "Informes Recientes"
+	},
+	"report": {
+		"title": "Informes Justificativos",
+		"new": "Nuevo Informe Justificativo",
+		"description": "Utiliza la IA para generar informes justificativos profesionales",
+		"referenceNumber": "Número de Referencia",
+		"reportTitle": "Título del Informe",
+		"information": "Información del Informe",
+		"aiAssistant": "Asistente IA",
+		"preview": "Vista Previa del Informe",
+		"content": "El informe aparecerá aquí",
+		"useChat": "Usa el chat para generar el contenido",
+		"saveReport": "Guardar Informe",
+		"placeholders": {
+			"referenceNumber": "Ej: INF-2024-001",
+			"title": "Título descriptivo del informe",
+			"chatInput": "Describe qué informe justificativo necesitas..."
+		}
+	},
+	"chat": {
+		"greeting": "¡Hola! Soy tu asistente para informes justificativos",
+		"description": "Describe qué necesitas y te ayudaré a crear el informe perfecto",
+		"examples": "Ejemplos de lo que puedes pedirme:",
+		"exampleItems": [
+			"Necesito justificar la compra de 10 ordenadores para la oficina",
+			"Quiero contratar un servicio de limpieza para el edificio",
+			"Necesito hacer obras de mejora en las instalaciones"
+		],
+		"generating": "Generando informe..."
+	},
+	"search": {
+		"title": "Buscar Informes",
+		"description": "Encuentra y gestiona tus informes justificativos",
+		"placeholder": "Buscar por número de referencia o título...",
+		"noResults": "No se encontraron informes que coincidan con tu búsqueda",
+		"noReports": "No hay informes guardados",
+		"createdOn": "Creado el"
+	},
+	"status": {
+		"draft": "borrador",
+		"finished": "finalizado"
+	},
+	"validation": {
+		"completeFields": "Por favor, completa todos los campos obligatorios",
+		"reportSaved": "Informe guardado correctamente",
+		"reportNotFound": "Informe no encontrado"
+	}
+}

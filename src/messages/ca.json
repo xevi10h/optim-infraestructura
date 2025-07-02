@@ -1,0 +1,65 @@
+{
+	"common": {
+		"save": "Desar",
+		"cancel": "Cancel·lar",
+		"delete": "Eliminar",
+		"edit": "Editar",
+		"view": "Veure",
+		"search": "Cercar",
+		"loading": "Carregant...",
+		"copy": "Copiar",
+		"download": "Descarregar",
+		"clear": "Netejar"
+	},
+	"navigation": {
+		"newReport": "Nou Informe",
+		"searchReports": "Cercar Informes",
+		"recentReports": "Informes Recents"
+	},
+	"report": {
+		"title": "Informes Justificatius",
+		"new": "Nou Informe Justificatiu",
+		"description": "Utilitza la IA per generar informes justificatius professionals",
+		"referenceNumber": "Número de Referència",
+		"reportTitle": "Títol de l'Informe",
+		"information": "Informació de l'Informe",
+		"aiAssistant": "Assistent IA",
+		"preview": "Vista Prèvia de l'Informe",
+		"content": "L'informe apareixerà aquí",
+		"useChat": "Utilitza el xat per generar el contingut",
+		"saveReport": "Desar Informe",
+		"placeholders": {
+			"referenceNumber": "Ex: INF-2024-001",
+			"title": "Títol descriptiu de l'informe",
+			"chatInput": "Descriu quin informe justificatiu necessites..."
+		}
+	},
+	"chat": {
+		"greeting": "Hola! Sóc el teu assistent per a informes justificatius",
+		"description": "Descriu què necessites i t'ajudaré a crear l'informe perfecte",
+		"examples": "Exemples del que pots demanar-me:",
+		"exampleItems": [
+			"Necessito justificar la compra de 10 ordinadors per a l'oficina",
+			"Vull contractar un servei de neteja per a l'edifici",
+			"Necessito fer obres de millora a les instal·lacions"
+		],
+		"generating": "Generant informe..."
+	},
+	"search": {
+		"title": "Cercar Informes",
+		"description": "Troba i gestiona els teus informes justificatius",
+		"placeholder": "Cercar per número de referència o títol...",
+		"noResults": "No s'han trobat informes que coincideixin amb la teva cerca",
+		"noReports": "No hi ha informes desats",
+		"createdOn": "Creat el"
+	},
+	"status": {
+		"draft": "esborrany",
+		"finished": "finalitzat"
+	},
+	"validation": {
+		"completeFields": "Si us plau, completa tots els camps obligatoris",
+		"reportSaved": "Informe desat correctament",
+		"reportNotFound": "Informe no trobat"
+	}
+}
