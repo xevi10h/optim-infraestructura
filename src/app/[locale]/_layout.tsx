@@ -1,5 +1,3 @@
-'use client';
-
 import type { Metadata } from 'next';
 import { Geist, Geist_Mono } from 'next/font/google';
 import { NextIntlClientProvider } from 'next-intl';
@@ -23,30 +21,22 @@ export const metadata: Metadata = {
 		"Sistema intel·ligent per a la generación d'informes justificatius en l'administració pública",
 };
 
-interface LocaleLayoutProps {
-	children: React.ReactNode;
-	params: { locale: string };
-}
-
 const locales = ['es', 'ca'];
 
 export default async function LocaleLayout({
 	children,
-	params: { locale },
-}: LocaleLayoutProps) {
-	// Validate that the incoming `locale` parameter is valid
+	params,
+}: {
+	children: React.ReactNode;
+	params: Promise<{ locale: string }>;
+}) {
+	const { locale } = await params;
+
 	if (!locales.includes(locale)) {
 		notFound();
 	}
 
-	// Providing all messages to the client
-	// side is the easiest way to get started
-	let messages;
-	try {
-		messages = await getMessages();
-	} catch (error) {
-		notFound();
-	}
+	const messages = await getMessages();
 
 	return (
 		<html lang={locale}>
