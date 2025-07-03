@@ -155,7 +155,6 @@ Would you like me to expand on any specific section or add additional details?`;
 					category: ReportCategory.TECHNOLOGY,
 					estimatedBudget: 15000,
 					department: 'IT Department',
-					tags: ['equipment', 'technology', 'procurement'],
 				};
 			} else if (
 				lowerInput.includes('limpieza') ||
@@ -196,7 +195,6 @@ Would you like me to adjust any section or add specific requirements?`;
 					category: ReportCategory.SERVICES,
 					estimatedBudget: 25000,
 					department: 'Facility Management',
-					tags: ['cleaning', 'services', 'maintenance'],
 				};
 			} else if (
 				lowerInput.includes('obra') ||
@@ -237,7 +235,6 @@ Shall I provide more specific details for any particular aspect?`;
 					category: ReportCategory.INFRASTRUCTURE,
 					estimatedBudget: 75000,
 					department: 'Public Works',
-					tags: ['construction', 'infrastructure', 'maintenance'],
 				};
 			} else {
 				// Generic response for other types of requests
@@ -272,7 +269,6 @@ Would you like me to customize this report further or focus on specific aspects?
 					title: 'General Justification Report',
 					category: ReportCategory.OTHER,
 					department: 'General Administration',
-					tags: ['justification', 'general'],
 				};
 			}
 

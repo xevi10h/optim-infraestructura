@@ -1,6 +1,6 @@
 'use client';
 
-import React from 'react';
+import React, { useEffect } from 'react';
 import { ProtectedRoute } from './auth/ProtectedRoute';
 import { Sidebar } from './Sidebar';
 import { Header } from './Header';
@@ -13,11 +13,16 @@ import { TemplatesView } from './views/TemplatesView';
 import { UsersView } from './views/UsersView';
 import { SettingsView } from './views/SettingsView';
 import { useUIStore } from '@/stores/uiStore';
-import { useAuthStore } from '@/stores/authStore';
+import { useReportsStore } from '@/stores';
 
 export const ReportsApp: React.FC = () => {
-	const { currentView, sidebarOpen } = useUIStore();
-	const { isAuthenticated } = useAuthStore();
+	const { currentView } = useUIStore();
+
+	const { fetchReports } = useReportsStore();
+
+	useEffect(() => {
+		fetchReports();
+	}, [fetchReports]);
 
 	const renderCurrentView = () => {
 		switch (currentView) {

@@ -45,7 +45,6 @@ export const NewReportView: React.FC = () => {
 		priority: Priority.MEDIUM,
 		department: '',
 		estimatedBudget: undefined,
-		tags: [],
 		templateId: undefined,
 		customFields: {},
 	});
@@ -82,27 +81,6 @@ export const NewReportView: React.FC = () => {
 		if (validationErrors.length > 0) {
 			setValidationErrors([]);
 		}
-	};
-
-	const handleTagAdd = (e: React.KeyboardEvent) => {
-		if (e.key === 'Enter' && tagInput.trim()) {
-			e.preventDefault();
-			const newTag = tagInput.trim().toLowerCase();
-			if (!formData.tags.includes(newTag)) {
-				setFormData((prev) => ({
-					...prev,
-					tags: [...prev.tags, newTag],
-				}));
-			}
-			setTagInput('');
-		}
-	};
-
-	const handleTagRemove = (tagToRemove: string) => {
-		setFormData((prev) => ({
-			...prev,
-			tags: prev.tags.filter((tag) => tag !== tagToRemove),
-		}));
 	};
 
 	const handleSendMessage = async () => {
@@ -162,7 +140,6 @@ export const NewReportView: React.FC = () => {
 				priority: Priority.MEDIUM,
 				department: '',
 				estimatedBudget: undefined,
-				tags: [],
 				templateId: undefined,
 				customFields: {},
 			});
@@ -324,47 +301,6 @@ export const NewReportView: React.FC = () => {
 										className="w-full pl-10 pr-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
 										placeholder="0.00"
 									/>
-								</div>
-							</div>
-
-							<div>
-								<label className="block text-sm font-medium text-gray-700 mb-2">
-									{t('report.tags')}
-								</label>
-								<div className="space-y-2">
-									<div className="relative">
-										<Tag
-											className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400"
-											size={20}
-										/>
-										<input
-											type="text"
-											value={tagInput}
-											onChange={(e) => setTagInput(e.target.value)}
-											onKeyPress={handleTagAdd}
-											className="w-full pl-10 pr-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-											placeholder={t('report.placeholders.tags')}
-										/>
-									</div>
-
-									{formData.tags.length > 0 && (
-										<div className="flex flex-wrap gap-2">
-											{formData.tags.map((tag) => (
-												<span
-													key={tag}
-													className="inline-flex items-center gap-1 px-2 py-1 bg-blue-100 text-blue-800 rounded-full text-sm"
-												>
-													{tag}
-													<button
-														onClick={() => handleTagRemove(tag)}
-														className="text-blue-600 hover:text-blue-800"
-													>
-														<X size={14} />
-													</button>
-												</span>
-											))}
-										</div>
-									)}
 								</div>
 							</div>
 						</div>

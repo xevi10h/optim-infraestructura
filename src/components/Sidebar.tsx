@@ -27,12 +27,6 @@ export const Sidebar: React.FC = () => {
 
 	const navigationItems = [
 		{
-			id: 'dashboard',
-			label: t('navigation.dashboard'),
-			icon: Home,
-			show: true,
-		},
-		{
 			id: 'new-report',
 			label: t('navigation.newReport'),
 			icon: Plus,
@@ -49,18 +43,6 @@ export const Sidebar: React.FC = () => {
 			label: t('navigation.templates'),
 			icon: BookOpen,
 			show: checkPermission('manage_templates'),
-		},
-		{
-			id: 'users',
-			label: t('navigation.users'),
-			icon: Users,
-			show: checkPermission('manage_users'),
-		},
-		{
-			id: 'settings',
-			label: t('navigation.settings'),
-			icon: Settings,
-			show: true,
 		},
 	];
 

@@ -94,7 +94,6 @@
 		"priority": "Prioritat",
 		"department": "Departament",
 		"estimatedBudget": "Pressupost Estimat",
-		"tags": "Etiquetes",
 		"information": "Informació de l'Informe",
 		"aiAssistant": "Assistent IA",
 		"preview": "Vista Prèvia de l'Informe",
@@ -107,8 +106,7 @@
 			"referenceNumber": "Ex: INF-2024-001",
 			"title": "Títol descriptiu de l'informe",
 			"chatInput": "Descriu quin informe justificatiu necessites...",
-			"department": "Ex: Departament d'IT",
-			"tags": "Escriu etiquetes separades per comes"
+			"department": "Ex: Departament d'IT"
 		},
 		"categories": {
 			"procurement": "Adquisició",

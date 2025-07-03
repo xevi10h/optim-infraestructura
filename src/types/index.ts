@@ -62,7 +62,6 @@ export interface Report {
 }
 
 export interface ReportMetadata {
-	tags: string[];
 	category: ReportCategory;
 	priority: Priority;
 	estimatedBudget?: number;
@@ -326,7 +325,7 @@ export interface ReportFormData {
 	priority: Priority;
 	department: string;
 	estimatedBudget?: number;
-	tags: string[];
+
 	templateId?: string;
 	customFields: { [key: string]: any };
 }
@@ -338,7 +337,7 @@ export interface ReportFilters {
 	priority?: Priority[];
 	dateRange?: DateRange;
 	author?: string;
-	tags?: string[];
+
 	search?: string;
 }
 

@@ -73,7 +73,6 @@ export const useReportsStore = create<ReportsStore>((set, get) => ({
 				organizationId: 'current-org-id',
 				status: ReportStatus.DRAFT,
 				metadata: {
-					tags: data.tags,
 					category: data.category,
 					priority: data.priority,
 					estimatedBudget: data.estimatedBudget,
@@ -154,7 +153,6 @@ export const useReportsStore = create<ReportsStore>((set, get) => ({
 					organizationId: 'org-1',
 					status: ReportStatus.APPROVED,
 					metadata: {
-						tags: ['technology', 'procurement'],
 						category: ReportCategory.PROCUREMENT,
 						priority: Priority.MEDIUM,
 						department: 'IT Department',
@@ -174,7 +172,6 @@ export const useReportsStore = create<ReportsStore>((set, get) => ({
 					organizationId: 'org-1',
 					status: ReportStatus.DRAFT,
 					metadata: {
-						tags: ['services', 'cleaning'],
 						category: ReportCategory.SERVICES,
 						priority: Priority.MEDIUM,
 						department: 'Facility Management',
@@ -194,7 +191,6 @@ export const useReportsStore = create<ReportsStore>((set, get) => ({
 					organizationId: 'org-1',
 					status: ReportStatus.IN_REVIEW,
 					metadata: {
-						tags: ['infrastructure', 'construction'],
 						category: ReportCategory.INFRASTRUCTURE,
 						priority: Priority.HIGH,
 						department: 'Public Works',

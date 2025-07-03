@@ -8,11 +8,9 @@ import {
 	Plus,
 	Search,
 	BookOpen,
-	TrendingUp,
 	Clock,
 	CheckCircle,
 	AlertCircle,
-	Users,
 	Calendar,
 	Activity,
 } from 'lucide-react';

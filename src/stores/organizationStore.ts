@@ -29,20 +29,20 @@ export const useOrganizationStore = create<OrganizationStore>((set, get) => ({
 			// Mock API call - implement in Phase 1
 			const mockOrganization: Organization = {
 				id: 'org-1',
-				name: 'Ayuntamiento de Barcelona',
+				name: 'Infraestructures.cat',
 				code: 'AYT-BCN',
 				type: 'municipal' as any,
 				address: {
-					street: 'Plaça de Sant Jaume, 1',
+					street: 'Carrer dels Vergós 36-42',
 					city: 'Barcelona',
-					postalCode: '08002',
+					postalCode: '08017',
 					province: 'Barcelona',
 					country: 'España',
 				},
 				contactInfo: {
-					phone: '+34 933 42 70 00',
+					phone: '+34 93 444 44 44',
 					email: 'info@bcn.cat',
-					website: 'https://www.barcelona.cat',
+					website: 'https://infraestructures.gencat.cat/',
 				},
 				settings: {
 					reportTemplates: [],

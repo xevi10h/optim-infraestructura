@@ -94,7 +94,6 @@
 		"priority": "Prioridad",
 		"department": "Departamento",
 		"estimatedBudget": "Presupuesto Estimado",
-		"tags": "Etiquetas",
 		"information": "Información del Informe",
 		"aiAssistant": "Asistente IA",
 		"preview": "Vista Previa del Informe",
@@ -107,8 +106,7 @@
 			"referenceNumber": "Ej: INF-2024-001",
 			"title": "Título descriptivo del informe",
 			"chatInput": "Describe qué informe justificativo necesitas...",
-			"department": "Ej: Departamento de IT",
-			"tags": "Escribe etiquetas separadas por comas"
+			"department": "Ej: Departamento de IT"
 		},
 		"categories": {
 			"procurement": "Adquisición",
