@@ -1,10 +1,12 @@
 import { create } from 'zustand';
-import type {
+import {
 	Report,
 	ReportFormData,
 	ReportFilters,
 	ReportStatus,
-} from '@/types';
+	ReportCategory,
+	Priority,
+} from '@/types'; // Remove 'type' from import
 
 interface ReportsState {
 	reports: Report[];
@@ -23,7 +25,7 @@ interface ReportsActions {
 	createReport: (data: ReportFormData) => Promise<Report>;
 	updateReport: (id: string, updates: Partial<Report>) => Promise<void>;
 	deleteReport: (id: string) => Promise<void>;
-	getReport: (id: string) => Promise<Report | null>;
+	getReport: (id: string) => Report | null; // Fix: make synchronous
 
 	// List and search
 	fetchReports: (filters?: ReportFilters, page?: number) => Promise<void>;
@@ -66,7 +68,7 @@ export const useReportsStore = create<ReportsStore>((set, get) => ({
 				id: Date.now().toString(),
 				referenceNumber: data.referenceNumber,
 				title: data.title,
-				content: '',
+				content: data.customFields?.content || '',
 				authorId: 'current-user-id',
 				organizationId: 'current-org-id',
 				status: ReportStatus.DRAFT,
@@ -133,25 +135,9 @@ export const useReportsStore = create<ReportsStore>((set, get) => ({
 		}
 	},
 
-	getReport: async (id: string) => {
+	getReport: (id: string) => {
 		const { reports } = get();
-		const report = reports.find((r) => r.id === id);
-		if (report) {
-			set({ currentReport: report });
-			return report;
-		}
-
-		// If not found locally, fetch from API
-		set({ isLoading: true });
-		try {
-			// Mock API call
-			const report = reports.find((r) => r.id === id) || null;
-			set({ currentReport: report, isLoading: false });
-			return report;
-		} catch (error) {
-			set({ isLoading: false });
-			throw error;
-		}
+		return reports.find((r) => r.id === id) || null;
 	},
 
 	fetchReports: async (filters?: ReportFilters, page = 1) => {
@@ -169,8 +155,8 @@ export const useReportsStore = create<ReportsStore>((set, get) => ({
 					status: ReportStatus.APPROVED,
 					metadata: {
 						tags: ['technology', 'procurement'],
-						category: 'procurement' as any,
-						priority: 'medium' as any,
+						category: ReportCategory.PROCUREMENT,
+						priority: Priority.MEDIUM,
 						department: 'IT Department',
 						relatedReports: [],
 						attachments: [],
@@ -179,7 +165,46 @@ export const useReportsStore = create<ReportsStore>((set, get) => ({
 					updatedAt: new Date('2024-01-20'),
 					version: 2,
 				},
-				// Add more mock reports as needed
+				{
+					id: '2',
+					referenceNumber: 'INF-2024-002',
+					title: 'Cleaning Services Contract',
+					content: 'Justification for cleaning services contract...',
+					authorId: 'user-1',
+					organizationId: 'org-1',
+					status: ReportStatus.DRAFT,
+					metadata: {
+						tags: ['services', 'cleaning'],
+						category: ReportCategory.SERVICES,
+						priority: Priority.MEDIUM,
+						department: 'Facility Management',
+						relatedReports: [],
+						attachments: [],
+					},
+					createdAt: new Date('2024-01-10'),
+					updatedAt: new Date('2024-01-12'),
+					version: 1,
+				},
+				{
+					id: '3',
+					referenceNumber: 'INF-2024-003',
+					title: 'Infrastructure Improvement Works',
+					content: 'Justification for infrastructure improvement works...',
+					authorId: 'user-1',
+					organizationId: 'org-1',
+					status: ReportStatus.IN_REVIEW,
+					metadata: {
+						tags: ['infrastructure', 'construction'],
+						category: ReportCategory.INFRASTRUCTURE,
+						priority: Priority.HIGH,
+						department: 'Public Works',
+						relatedReports: [],
+						attachments: [],
+					},
+					createdAt: new Date('2024-01-08'),
+					updatedAt: new Date('2024-01-10'),
+					version: 1,
+				},
 			];
 
 			set({

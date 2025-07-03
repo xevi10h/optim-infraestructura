@@ -4,7 +4,6 @@ import React, { useState, useRef, useEffect } from 'react';
 import { useTranslations } from 'next-intl';
 import { Send, MessageSquare } from 'lucide-react';
 import { useChatStore } from '@/stores/chatStore';
-import { generateMockReport } from '@/utils/reportGenerator';
 
 interface ChatInterfaceProps {
 	onContentGenerated: (content: string) => void;
@@ -14,10 +13,20 @@ export const ChatInterface: React.FC<ChatInterfaceProps> = ({
 	onContentGenerated,
 }) => {
 	const t = useTranslations();
-	const { conversations, addMessage, isLoading, setIsLoading, clearMessages } =
-		useChatStore();
+	const {
+		conversations,
+		addMessage,
+		isGenerating,
+		setIsLoading,
+		clearMessages,
+		generateResponse,
+	} = useChatStore();
 	const [inputMessage, setInputMessage] = useState('');
 	const messagesEndRef = useRef<HTMLDivElement>(null);
+
+	// Use a fixed conversation ID for this chat interface
+	const conversationId = 'chat-interface';
+	const messages = conversations[conversationId] || [];
 
 	const scrollToBottom = () => {
 		messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
@@ -25,33 +34,27 @@ export const ChatInterface: React.FC<ChatInterfaceProps> = ({
 
 	useEffect(() => {
 		scrollToBottom();
-	}, [conversations]);
+	}, [messages]);
 
 	const handleSendMessage = async () => {
 		if (!inputMessage.trim()) return;
 
-		addMessage({
-			type: 'user',
-			content: inputMessage,
-			timestamp: new Date(),
-		});
-
+		const userMessage = inputMessage;
 		setInputMessage('');
-		setIsLoading(true);
 
-		// Simulate AI response
-		setTimeout(() => {
-			const generatedContent = generateMockReport(inputMessage);
+		try {
+			await generateResponse(conversationId, userMessage);
 
-			addMessage({
-				type: 'assistant',
-				content: generatedContent,
-				timestamp: new Date(),
-			});
+			// Get the latest response and pass it to parent
+			const updatedMessages = conversations[conversationId] || [];
+			const lastMessage = updatedMessages[updatedMessages.length - 1];
 
-			onContentGenerated(generatedContent);
-			setIsLoading(false);
-		}, 2000);
+			if (lastMessage && lastMessage.type === 'assistant') {
+				onContentGenerated(lastMessage.content);
+			}
+		} catch (error) {
+			console.error('Error generating response:', error);
+		}
 	};
 
 	const handleKeyPress = (e: React.KeyboardEvent) => {
@@ -59,6 +62,10 @@ export const ChatInterface: React.FC<ChatInterfaceProps> = ({
 			e.preventDefault();
 			handleSendMessage();
 		}
+	};
+
+	const handleClearMessages = () => {
+		clearMessages(conversationId);
 	};
 
 	return (
@@ -109,7 +116,7 @@ export const ChatInterface: React.FC<ChatInterfaceProps> = ({
 					</div>
 				))}
 
-				{isLoading && (
+				{isGenerating && (
 					<div className="flex justify-start mb-4">
 						<div className="bg-gray-100 px-4 py-3 rounded-lg">
 							<div className="flex items-center gap-2">
@@ -132,16 +139,27 @@ export const ChatInterface: React.FC<ChatInterfaceProps> = ({
 						onKeyPress={handleKeyPress}
 						placeholder={t('report.placeholders.chatInput')}
 						className="flex-1 px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-						disabled={isLoading}
+						disabled={isGenerating}
 					/>
 					<button
 						onClick={handleSendMessage}
-						disabled={isLoading || !inputMessage.trim()}
+						disabled={isGenerating || !inputMessage.trim()}
 						className="px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
 					>
 						<Send size={20} />
 					</button>
 				</div>
+
+				{messages.length > 0 && (
+					<div className="mt-2 flex justify-end">
+						<button
+							onClick={handleClearMessages}
+							className="text-xs text-gray-500 hover:text-gray-700"
+						>
+							{t('common.clear')}
+						</button>
+					</div>
+				)}
 			</div>
 		</div>
 	);

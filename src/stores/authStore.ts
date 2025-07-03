@@ -1,6 +1,6 @@
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
-import type { User, Organization, UserRole } from '@/types';
+import { User, Organization, UserRole } from '@/types';
 
 interface AuthState {
 	user: User | null;
@@ -85,6 +85,7 @@ export const useAuthStore = create<AuthStore>()(
 							'edit_reports',
 							'delete_reports',
 							'manage_users',
+							'manage_templates',
 						],
 					});
 				} catch (error) {

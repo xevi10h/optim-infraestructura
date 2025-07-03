@@ -1,18 +1,29 @@
 import { create } from 'zustand';
-import type { ChatMessage, ExtractedData, MessageType } from '@/types';
+import {
+	ChatMessage,
+	ExtractedData,
+	MessageType,
+	ReportCategory,
+} from '@/types'; // Remove 'type' from import
 
 interface ChatState {
 	conversations: { [reportId: string]: ChatMessage[] };
 	currentConversationId: string | null;
 	isGenerating: boolean;
+	isLoading: boolean; // Add missing property
 	extractedData: ExtractedData | null;
 }
 
 interface ChatActions {
-	addMessage: (reportId: string, message: Omit<ChatMessage, 'id'>) => void;
+	addMessage: (
+		reportId: string,
+		message: Omit<ChatMessage, 'id' | 'conversationId'>,
+	) => void;
 	clearConversation: (reportId: string) => void;
+	clearMessages: (reportId: string) => void; // Add missing method
 	setCurrentConversation: (reportId: string) => void;
 	setGenerating: (isGenerating: boolean) => void;
+	setIsLoading: (isLoading: boolean) => void; // Add missing method
 	setExtractedData: (data: ExtractedData | null) => void;
 	generateResponse: (reportId: string, userMessage: string) => Promise<void>;
 }
@@ -24,10 +35,14 @@ export const useChatStore = create<ChatStore>((set, get) => ({
 	conversations: {},
 	currentConversationId: null,
 	isGenerating: false,
+	isLoading: false,
 	extractedData: null,
 
 	// Actions
-	addMessage: (reportId: string, message: Omit<ChatMessage, 'id'>) => {
+	addMessage: (
+		reportId: string,
+		message: Omit<ChatMessage, 'id' | 'conversationId'>,
+	) => {
 		const newMessage: ChatMessage = {
 			...message,
 			id: Date.now().toString(),
@@ -52,12 +67,26 @@ export const useChatStore = create<ChatStore>((set, get) => ({
 		}));
 	},
 
+	clearMessages: (reportId: string) => {
+		set((state) => ({
+			conversations: {
+				...state.conversations,
+				[reportId]: [],
+			},
+			extractedData: null,
+		}));
+	},
+
 	setCurrentConversation: (reportId: string) => {
 		set({ currentConversationId: reportId });
 	},
 
 	setGenerating: (isGenerating: boolean) => {
 		set({ isGenerating });
+	},
+
+	setIsLoading: (isLoading: boolean) => {
+		set({ isLoading });
 	},
 
 	setExtractedData: (data: ExtractedData | null) => {
@@ -123,7 +152,7 @@ Would you like me to expand on any specific section or add additional details?`;
 
 				extractedData = {
 					title: 'Computer Equipment Procurement Report',
-					category: 'technology',
+					category: ReportCategory.TECHNOLOGY,
 					estimatedBudget: 15000,
 					department: 'IT Department',
 					tags: ['equipment', 'technology', 'procurement'],
@@ -164,7 +193,7 @@ Would you like me to adjust any section or add specific requirements?`;
 
 				extractedData = {
 					title: 'Cleaning Services Contract Report',
-					category: 'services',
+					category: ReportCategory.SERVICES,
 					estimatedBudget: 25000,
 					department: 'Facility Management',
 					tags: ['cleaning', 'services', 'maintenance'],
@@ -205,7 +234,7 @@ Shall I provide more specific details for any particular aspect?`;
 
 				extractedData = {
 					title: 'Infrastructure Improvement Works Report',
-					category: 'infrastructure',
+					category: ReportCategory.INFRASTRUCTURE,
 					estimatedBudget: 75000,
 					department: 'Public Works',
 					tags: ['construction', 'infrastructure', 'maintenance'],
@@ -241,7 +270,7 @@ Would you like me to customize this report further or focus on specific aspects?
 
 				extractedData = {
 					title: 'General Justification Report',
-					category: 'other',
+					category: ReportCategory.OTHER,
 					department: 'General Administration',
 					tags: ['justification', 'general'],
 				};
