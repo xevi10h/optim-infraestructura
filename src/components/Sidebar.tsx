@@ -2,86 +2,185 @@
 
 import React from 'react';
 import { useTranslations } from 'next-intl';
-import { Plus, Search, FileText, X } from 'lucide-react';
-import { useReportsStore } from '@/stores/useReportsStore';
+import {
+	Home,
+	Plus,
+	Search,
+	FileText,
+	Settings,
+	Users,
+	BookOpen,
+	ChevronLeft,
+	LogOut,
+} from 'lucide-react';
+import { useUIStore } from '@/stores/uiStore';
+import { useAuthStore } from '@/stores/authStore';
+import { useReportsStore } from '@/stores/reportsStore';
 import type { ViewType } from '@/types';
 
-interface SidebarProps {
-	currentView: ViewType;
-	onViewChange: (view: ViewType) => void;
-	isOpen: boolean;
-	onToggle: (open: boolean) => void;
-}
-
-export const Sidebar: React.FC<SidebarProps> = ({
-	currentView,
-	onViewChange,
-	isOpen,
-	onToggle,
-}) => {
+export const Sidebar: React.FC = () => {
 	const t = useTranslations();
-	const reports = useReportsStore((state) => state.reports);
+	const { currentView, sidebarOpen, setCurrentView, setSidebarOpen } =
+		useUIStore();
+	const { user, logout, checkPermission } = useAuthStore();
+	const { reports } = useReportsStore();
+
+	const navigationItems = [
+		{
+			id: 'dashboard',
+			label: t('navigation.dashboard'),
+			icon: Home,
+			show: true,
+		},
+		{
+			id: 'new-report',
+			label: t('navigation.newReport'),
+			icon: Plus,
+			show: checkPermission('create_reports'),
+		},
+		{
+			id: 'search-reports',
+			label: t('navigation.searchReports'),
+			icon: Search,
+			show: true,
+		},
+		{
+			id: 'templates',
+			label: t('navigation.templates'),
+			icon: BookOpen,
+			show: checkPermission('manage_templates'),
+		},
+		{
+			id: 'users',
+			label: t('navigation.users'),
+			icon: Users,
+			show: checkPermission('manage_users'),
+		},
+		{
+			id: 'settings',
+			label: t('navigation.settings'),
+			icon: Settings,
+			show: true,
+		},
+	];
+
+	const recentReports = reports.slice(0, 5);
 
 	return (
 		<div
 			className={`bg-gray-900 text-white h-screen transition-all duration-300 ${
-				isOpen ? 'w-64' : 'w-0'
+				sidebarOpen ? 'w-64' : 'w-16'
 			} overflow-hidden flex flex-col`}
 		>
+			{/* Header */}
 			<div className="p-4 border-b border-gray-700">
 				<div className="flex items-center justify-between">
-					<h1 className="text-xl font-bold">{t('report.title')}</h1>
+					{sidebarOpen && (
+						<h1 className="text-xl font-bold truncate">{t('report.title')}</h1>
+					)}
 					<button
-						onClick={() => onToggle(false)}
-						className="lg:hidden text-gray-400 hover:text-white"
+						onClick={() => setSidebarOpen(!sidebarOpen)}
+						className="p-2 hover:bg-gray-800 rounded-lg transition-colors"
 					>
-						<X size={20} />
+						<ChevronLeft
+							className={`transform transition-transform ${
+								sidebarOpen ? 'rotate-0' : 'rotate-180'
+							}`}
+							size={20}
+						/>
 					</button>
 				</div>
 			</div>
 
-			<nav className="flex-1 p-4">
-				<button
-					onClick={() => onViewChange('new')}
-					className={`w-full flex items-center gap-3 p-3 rounded-lg mb-2 transition-colors ${
-						currentView === 'new' ? 'bg-blue-600' : 'hover:bg-gray-800'
-					}`}
-				>
-					<Plus size={20} />
-					{t('navigation.newReport')}
-				</button>
+			{/* Navigation */}
+			<nav className="flex-1 p-4 space-y-2">
+				{navigationItems.map((item) => {
+					if (!item.show) return null;
 
-				<button
-					onClick={() => onViewChange('search')}
-					className={`w-full flex items-center gap-3 p-3 rounded-lg mb-2 transition-colors ${
-						currentView === 'search' ? 'bg-blue-600' : 'hover:bg-gray-800'
-					}`}
-				>
-					<Search size={20} />
-					{t('navigation.searchReports')}
-				</button>
+					const Icon = item.icon;
+					const isActive = currentView === item.id;
 
-				<div className="mt-6">
-					<h3 className="text-sm font-semibold text-gray-400 mb-3">
-						{t('navigation.recentReports')}
-					</h3>
-					{reports.slice(0, 5).map((report) => (
+					return (
 						<button
-							key={report.id}
-							onClick={() => onViewChange(`report-${report.id}` as ViewType)}
-							className="w-full flex items-center gap-3 p-2 rounded-lg mb-1 hover:bg-gray-800 text-left"
+							key={item.id}
+							onClick={() => setCurrentView(item.id as ViewType)}
+							className={`w-full flex items-center gap-3 p-3 rounded-lg transition-colors ${
+								isActive ? 'bg-blue-600' : 'hover:bg-gray-800'
+							}`}
+							title={!sidebarOpen ? item.label : undefined}
 						>
-							<FileText size={16} />
-							<div className="truncate">
-								<div className="text-sm truncate">{report.title}</div>
+							<Icon size={20} />
+							{sidebarOpen && <span className="truncate">{item.label}</span>}
+						</button>
+					);
+				})}
+
+				{/* Recent Reports */}
+				{sidebarOpen && recentReports.length > 0 && (
+					<div className="mt-6 pt-4 border-t border-gray-700">
+						<h3 className="text-sm font-semibold text-gray-400 mb-3">
+							{t('navigation.recentReports')}
+						</h3>
+						<div className="space-y-1">
+							{recentReports.map((report) => (
+								<button
+									key={report.id}
+									onClick={() =>
+										setCurrentView(`report-${report.id}` as ViewType)
+									}
+									className="w-full flex items-center gap-3 p-2 rounded-lg hover:bg-gray-800 text-left"
+								>
+									<FileText size={16} />
+									<div className="truncate flex-1">
+										<div className="text-sm truncate">{report.title}</div>
+										<div className="text-xs text-gray-400">
+											{report.referenceNumber}
+										</div>
+									</div>
+								</button>
+							))}
+						</div>
+					</div>
+				)}
+			</nav>
+
+			{/* User Profile */}
+			<div className="p-4 border-t border-gray-700">
+				{sidebarOpen && user && (
+					<div className="space-y-2">
+						<div className="flex items-center gap-3 p-2">
+							<div className="w-8 h-8 bg-blue-500 rounded-full flex items-center justify-center">
+								<span className="text-sm font-medium">
+									{user.name.charAt(0).toUpperCase()}
+								</span>
+							</div>
+							<div className="flex-1 truncate">
+								<div className="text-sm font-medium truncate">{user.name}</div>
 								<div className="text-xs text-gray-400">
-									{report.referenceNumber}
+									{t(`auth.roles.${user.role}`)}
 								</div>
 							</div>
+						</div>
+						<button
+							onClick={logout}
+							className="w-full flex items-center gap-3 p-2 text-red-400 hover:bg-red-500/10 rounded-lg transition-colors"
+						>
+							<LogOut size={16} />
+							<span className="text-sm">{t('auth.logout')}</span>
 						</button>
-					))}
-				</div>
-			</nav>
+					</div>
+				)}
+
+				{!sidebarOpen && (
+					<button
+						onClick={logout}
+						className="w-full p-2 text-red-400 hover:bg-red-500/10 rounded-lg transition-colors"
+						title={t('auth.logout')}
+					>
+						<LogOut size={20} />
+					</button>
+				)}
+			</div>
 		</div>
 	);
 };

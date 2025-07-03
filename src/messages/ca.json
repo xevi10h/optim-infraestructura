@@ -9,12 +9,80 @@
 		"loading": "Carregant...",
 		"copy": "Copiar",
 		"download": "Descarregar",
-		"clear": "Netejar"
+		"clear": "Netejar",
+		"submit": "Enviar",
+		"close": "Tancar",
+		"confirm": "Confirmar",
+		"success": "Èxit",
+		"error": "Error",
+		"warning": "Advertència",
+		"info": "Informació"
+	},
+	"auth": {
+		"login": {
+			"title": "Iniciar Sessió",
+			"subtitle": "Accedeix al sistema d'informes justificatius",
+			"submit": "Iniciar Sessió",
+			"footer": "Sistema d'Administració Pública Digital"
+		},
+		"fields": {
+			"email": "Correu Electrònic",
+			"password": "Contrasenya",
+			"name": "Nom Complet",
+			"role": "Rol",
+			"memberSince": "Membre des de"
+		},
+		"placeholders": {
+			"email": "el.teu.email@administracio.cat",
+			"password": "Introdueix la teva contrasenya"
+		},
+		"errors": {
+			"invalidCredentials": "Credencials invàlides. Si us plau, verifica el teu email i contrasenya.",
+			"serverError": "Error del servidor. Torna-ho a provar més tard.",
+			"unauthorized": "No tens permisos per realitzar aquesta acció."
+		},
+		"roles": {
+			"admin": "Administrador",
+			"creator": "Creador",
+			"reviewer": "Revisor",
+			"viewer": "Visualitzador"
+		},
+		"profile": {
+			"title": "Perfil d'Usuari",
+			"userInfo": "Informació Personal",
+			"organizationInfo": "Informació de l'Organització"
+		},
+		"logout": "Tancar Sessió"
 	},
 	"navigation": {
+		"dashboard": "Panell Principal",
 		"newReport": "Nou Informe",
 		"searchReports": "Cercar Informes",
-		"recentReports": "Informes Recents"
+		"templates": "Plantilles",
+		"users": "Usuaris",
+		"settings": "Configuració",
+		"recentReports": "Informes Recents",
+		"profile": "Perfil"
+	},
+	"dashboard": {
+		"title": "Panell de Control",
+		"subtitle": "Resum de la teva activitat recent",
+		"stats": {
+			"totalReports": "Total d'Informes",
+			"draftReports": "Esborranys",
+			"pendingReview": "Pendents de Revisió",
+			"completedReports": "Completats"
+		},
+		"quickActions": {
+			"title": "Accions Ràpides",
+			"createReport": "Crear Nou Informe",
+			"searchReports": "Cercar Informes",
+			"manageTemplates": "Gestionar Plantilles"
+		},
+		"recentActivity": {
+			"title": "Activitat Recent",
+			"noActivity": "No hi ha activitat recent"
+		}
 	},
 	"report": {
 		"title": "Informes Justificatius",
@@ -22,16 +90,40 @@
 		"description": "Utilitza la IA per generar informes justificatius professionals",
 		"referenceNumber": "Número de Referència",
 		"reportTitle": "Títol de l'Informe",
+		"category": "Categoria",
+		"priority": "Prioritat",
+		"department": "Departament",
+		"estimatedBudget": "Pressupost Estimat",
+		"tags": "Etiquetes",
 		"information": "Informació de l'Informe",
 		"aiAssistant": "Assistent IA",
 		"preview": "Vista Prèvia de l'Informe",
 		"content": "L'informe apareixerà aquí",
 		"useChat": "Utilitza el xat per generar el contingut",
 		"saveReport": "Desar Informe",
+		"publishReport": "Publicar Informe",
+		"submitForReview": "Enviar per a Revisió",
 		"placeholders": {
 			"referenceNumber": "Ex: INF-2024-001",
 			"title": "Títol descriptiu de l'informe",
-			"chatInput": "Descriu quin informe justificatiu necessites..."
+			"chatInput": "Descriu quin informe justificatiu necessites...",
+			"department": "Ex: Departament d'IT",
+			"tags": "Escriu etiquetes separades per comes"
+		},
+		"categories": {
+			"procurement": "Adquisició",
+			"infrastructure": "Infraestructura",
+			"services": "Serveis",
+			"personnel": "Personal",
+			"maintenance": "Manteniment",
+			"technology": "Tecnologia",
+			"other": "Altres"
+		},
+		"priorities": {
+			"low": "Baixa",
+			"medium": "Mitjana",
+			"high": "Alta",
+			"urgent": "Urgent"
 		}
 	},
 	"chat": {
@@ -43,7 +135,9 @@
 			"Vull contractar un servei de neteja per a l'edifici",
 			"Necessito fer obres de millora a les instal·lacions"
 		],
-		"generating": "Generant informe..."
+		"generating": "Generant informe...",
+		"regenerate": "Regenerar resposta",
+		"useResponse": "Usar aquesta resposta"
 	},
 	"search": {
 		"title": "Cercar Informes",
@@ -51,15 +145,63 @@
 		"placeholder": "Cercar per número de referència o títol...",
 		"noResults": "No s'han trobat informes que coincideixin amb la teva cerca",
 		"noReports": "No hi ha informes desats",
-		"createdOn": "Creat el"
+		"createdOn": "Creat el",
+		"filters": {
+			"title": "Filtres",
+			"status": "Estat",
+			"category": "Categoria",
+			"priority": "Prioritat",
+			"dateRange": "Rang de Dates",
+			"author": "Autor",
+			"clear": "Netejar Filtres"
+		}
+	},
+	"templates": {
+		"title": "Plantilles d'Informes",
+		"description": "Gestiona les plantilles per a diferents tipus d'informes",
+		"new": "Nova Plantilla",
+		"edit": "Editar Plantilla",
+		"delete": "Eliminar Plantilla",
+		"fields": {
+			"name": "Nom de la Plantilla",
+			"description": "Descripció",
+			"category": "Categoria",
+			"structure": "Estructura"
+		}
+	},
+	"organization": {
+		"name": "Nom de l'Organització",
+		"code": "Codi",
+		"type": "Tipus",
+		"address": "Adreça",
+		"phone": "Telèfon",
+		"email": "Email",
+		"website": "Lloc Web"
 	},
 	"status": {
 		"draft": "esborrany",
-		"finished": "finalitzat"
+		"in_review": "en revisió",
+		"approved": "aprovat",
+		"rejected": "rebutjat",
+		"published": "publicat",
+		"archived": "arxivat"
 	},
 	"validation": {
+		"required": "Aquest camp és obligatori",
+		"email": "Introdueix un email vàlid",
+		"minLength": "Mínim {count} caràcters",
+		"maxLength": "Màxim {count} caràcters",
 		"completeFields": "Si us plau, completa tots els camps obligatoris",
 		"reportSaved": "Informe desat correctament",
-		"reportNotFound": "Informe no trobat"
+		"reportNotFound": "Informe no trobat",
+		"reportDeleted": "Informe eliminat correctament",
+		"confirmDelete": "Estàs segur que vols eliminar aquest informe?"
+	},
+	"notifications": {
+		"reportCreated": "Informe creat exitosament",
+		"reportUpdated": "Informe actualitzat exitosament",
+		"reportDeleted": "Informe eliminat exitosament",
+		"profileUpdated": "Perfil actualitzat exitosament",
+		"error": "Ha ocorregut un error. Torna-ho a provar."
 	}
 }

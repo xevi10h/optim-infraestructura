@@ -1,41 +1,59 @@
 'use client';
 
-import React, { useState } from 'react';
+import React from 'react';
+import { ProtectedRoute } from './auth/ProtectedRoute';
 import { Sidebar } from './Sidebar';
 import { Header } from './Header';
+import { NotificationSystem } from './ui/NotificationSystem';
+import { DashboardView } from './views/DashboardView';
 import { NewReportView } from './views/NewReportView';
 import { SearchReportsView } from './views/SearchReportsView';
 import { ReportDetailView } from './views/ReportDetailView';
-import type { ViewType } from '@/types';
+import { TemplatesView } from './views/TemplatesView';
+import { UsersView } from './views/UsersView';
+import { SettingsView } from './views/SettingsView';
+import { useUIStore } from '@/stores/uiStore';
+import { useAuthStore } from '@/stores/authStore';
 
 export const ReportsApp: React.FC = () => {
-	const [currentView, setCurrentView] = useState<ViewType>('new');
-	const [sidebarOpen, setSidebarOpen] = useState(true);
+	const { currentView, sidebarOpen } = useUIStore();
+	const { isAuthenticated } = useAuthStore();
 
 	const renderCurrentView = () => {
-		if (currentView === 'new') return <NewReportView />;
-		if (currentView === 'search') return <SearchReportsView />;
-		if (currentView.startsWith('report-')) {
-			const reportId = parseInt(currentView.split('-')[1]);
-			return <ReportDetailView reportId={reportId} />;
+		switch (currentView) {
+			case 'dashboard':
+				return <DashboardView />;
+			case 'new-report':
+				return <NewReportView />;
+			case 'search-reports':
+				return <SearchReportsView />;
+			case 'templates':
+				return <TemplatesView />;
+			case 'users':
+				return <UsersView />;
+			case 'settings':
+				return <SettingsView />;
+			default:
+				if (currentView.startsWith('report-')) {
+					const reportId = currentView.split('-')[1];
+					return <ReportDetailView reportId={reportId} />;
+				}
+				return <DashboardView />;
 		}
-		return <NewReportView />;
 	};
 
 	return (
-		<div className="flex h-screen bg-gray-50">
-			<Sidebar
-				currentView={currentView}
-				onViewChange={setCurrentView}
-				isOpen={sidebarOpen}
-				onToggle={setSidebarOpen}
-			/>
+		<ProtectedRoute>
+			<div className="flex h-screen bg-gray-50">
+				<Sidebar />
 
-			<div className="flex-1 flex flex-col overflow-hidden">
-				<Header onToggleSidebar={() => setSidebarOpen(!sidebarOpen)} />
+				<div className="flex-1 flex flex-col overflow-hidden">
+					<Header />
+					<main className="flex-1 overflow-y-auto">{renderCurrentView()}</main>
+				</div>
 
-				<main className="flex-1 overflow-y-auto">{renderCurrentView()}</main>
+				<NotificationSystem />
 			</div>
-		</div>
+		</ProtectedRoute>
 	);
 };

@@ -3,7 +3,8 @@
 import React, { useState } from 'react';
 import { useTranslations } from 'next-intl';
 import { Search, FileText, Eye, Edit3, Trash2 } from 'lucide-react';
-import { useReportsStore } from '@/stores/useReportsStore';
+import { useReportsStore } from '@/stores/reportsStore';
+import { ReportStatus } from '@/types';
 
 export const SearchReportsView: React.FC = () => {
 	const t = useTranslations();
@@ -18,11 +19,11 @@ export const SearchReportsView: React.FC = () => {
 			report.title.toLowerCase().includes(searchQuery.toLowerCase()),
 	);
 
-	const getStatusBadge = (status: 'draft' | 'finished') => {
+	const getStatusBadge = (status: ReportStatus) => {
 		const statusText = t(`status.${status}`);
 		const baseClasses = 'text-xs px-2 py-1 rounded-full font-medium';
 
-		if (status === 'finished') {
+		if (status === ReportStatus.APPROVED) {
 			return `${baseClasses} bg-green-100 text-green-800`;
 		}
 		return `${baseClasses} bg-yellow-100 text-yellow-800`;
@@ -75,7 +76,7 @@ export const SearchReportsView: React.FC = () => {
 									</h3>
 									<p className="text-sm text-gray-500">
 										{t('search.createdOn')}{' '}
-										{new Date(report.creationDate).toLocaleDateString()}
+										{new Date(report.createdAt).toLocaleDateString()}
 									</p>
 								</div>
 

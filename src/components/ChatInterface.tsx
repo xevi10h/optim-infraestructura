@@ -3,7 +3,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { useTranslations } from 'next-intl';
 import { Send, MessageSquare } from 'lucide-react';
-import { useReportsStore } from '@/stores/useReportsStore';
+import { useChatStore } from '@/stores/chatStore';
 import { generateMockReport } from '@/utils/reportGenerator';
 
 interface ChatInterfaceProps {
@@ -14,8 +14,8 @@ export const ChatInterface: React.FC<ChatInterfaceProps> = ({
 	onContentGenerated,
 }) => {
 	const t = useTranslations();
-	const { messages, addMessage, isLoading, setIsLoading, clearMessages } =
-		useReportsStore();
+	const { conversations, addMessage, isLoading, setIsLoading, clearMessages } =
+		useChatStore();
 	const [inputMessage, setInputMessage] = useState('');
 	const messagesEndRef = useRef<HTMLDivElement>(null);
 
@@ -25,7 +25,7 @@ export const ChatInterface: React.FC<ChatInterfaceProps> = ({
 
 	useEffect(() => {
 		scrollToBottom();
-	}, [messages]);
+	}, [conversations]);
 
 	const handleSendMessage = async () => {
 		if (!inputMessage.trim()) return;

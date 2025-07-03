@@ -3,6 +3,7 @@
 import React from 'react';
 import { useRouter, usePathname } from 'next/navigation';
 import { useLocale } from 'next-intl';
+import { Globe } from 'lucide-react';
 
 export const LanguageSwitcher: React.FC = () => {
 	const router = useRouter();
@@ -10,7 +11,6 @@ export const LanguageSwitcher: React.FC = () => {
 	const currentLocale = useLocale();
 
 	const handleLanguageChange = (newLocale: string) => {
-		// Remove the current locale from the pathname and add the new one
 		const segments = pathname.split('/');
 		segments[1] = newLocale;
 		const newPath = segments.join('/');
@@ -18,23 +18,24 @@ export const LanguageSwitcher: React.FC = () => {
 	};
 
 	return (
-		<div className="flex items-center gap-2">
+		<div className="flex items-center gap-2 bg-gray-100 rounded-lg p-1">
+			<Globe size={16} className="text-gray-500" />
 			<button
 				onClick={() => handleLanguageChange('es')}
-				className={`px-2 py-1 text-sm rounded ${
+				className={`px-3 py-1 text-sm rounded-md transition-colors ${
 					currentLocale === 'es'
-						? 'bg-blue-500 text-white'
-						: 'text-gray-600 hover:bg-gray-100'
+						? 'bg-white text-blue-600 shadow-sm'
+						: 'text-gray-600 hover:text-gray-900'
 				}`}
 			>
 				ES
 			</button>
 			<button
 				onClick={() => handleLanguageChange('ca')}
-				className={`px-2 py-1 text-sm rounded ${
+				className={`px-3 py-1 text-sm rounded-md transition-colors ${
 					currentLocale === 'ca'
-						? 'bg-blue-500 text-white'
-						: 'text-gray-600 hover:bg-gray-100'
+						? 'bg-white text-blue-600 shadow-sm'
+						: 'text-gray-600 hover:text-gray-900'
 				}`}
 			>
 				CA

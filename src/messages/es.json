@@ -9,12 +9,80 @@
 		"loading": "Cargando...",
 		"copy": "Copiar",
 		"download": "Descargar",
-		"clear": "Limpiar"
+		"clear": "Limpiar",
+		"submit": "Enviar",
+		"close": "Cerrar",
+		"confirm": "Confirmar",
+		"success": "Éxito",
+		"error": "Error",
+		"warning": "Advertencia",
+		"info": "Información"
+	},
+	"auth": {
+		"login": {
+			"title": "Iniciar Sesión",
+			"subtitle": "Accede al sistema de informes justificativos",
+			"submit": "Iniciar Sesión",
+			"footer": "Sistema de Administración Pública Digital"
+		},
+		"fields": {
+			"email": "Correo Electrónico",
+			"password": "Contraseña",
+			"name": "Nombre Completo",
+			"role": "Rol",
+			"memberSince": "Miembro desde"
+		},
+		"placeholders": {
+			"email": "tu.email@administracion.es",
+			"password": "Introduce tu contraseña"
+		},
+		"errors": {
+			"invalidCredentials": "Credenciales inválidas. Por favor, verifica tu email y contraseña.",
+			"serverError": "Error del servidor. Inténtalo de nuevo más tarde.",
+			"unauthorized": "No tienes permisos para realizar esta acción."
+		},
+		"roles": {
+			"admin": "Administrador",
+			"creator": "Creador",
+			"reviewer": "Revisor",
+			"viewer": "Visualizador"
+		},
+		"profile": {
+			"title": "Perfil de Usuario",
+			"userInfo": "Información Personal",
+			"organizationInfo": "Información de la Organización"
+		},
+		"logout": "Cerrar Sesión"
 	},
 	"navigation": {
+		"dashboard": "Panel Principal",
 		"newReport": "Nuevo Informe",
 		"searchReports": "Buscar Informes",
-		"recentReports": "Informes Recientes"
+		"templates": "Plantillas",
+		"users": "Usuarios",
+		"settings": "Configuración",
+		"recentReports": "Informes Recientes",
+		"profile": "Perfil"
+	},
+	"dashboard": {
+		"title": "Panel de Control",
+		"subtitle": "Resumen de tu actividad reciente",
+		"stats": {
+			"totalReports": "Total de Informes",
+			"draftReports": "Borradores",
+			"pendingReview": "Pendientes de Revisión",
+			"completedReports": "Completados"
+		},
+		"quickActions": {
+			"title": "Acciones Rápidas",
+			"createReport": "Crear Nuevo Informe",
+			"searchReports": "Buscar Informes",
+			"manageTemplates": "Gestionar Plantillas"
+		},
+		"recentActivity": {
+			"title": "Actividad Reciente",
+			"noActivity": "No hay actividad reciente"
+		}
 	},
 	"report": {
 		"title": "Informes Justificativos",
@@ -22,16 +90,40 @@
 		"description": "Utiliza la IA para generar informes justificativos profesionales",
 		"referenceNumber": "Número de Referencia",
 		"reportTitle": "Título del Informe",
+		"category": "Categoría",
+		"priority": "Prioridad",
+		"department": "Departamento",
+		"estimatedBudget": "Presupuesto Estimado",
+		"tags": "Etiquetas",
 		"information": "Información del Informe",
 		"aiAssistant": "Asistente IA",
 		"preview": "Vista Previa del Informe",
 		"content": "El informe aparecerá aquí",
 		"useChat": "Usa el chat para generar el contenido",
 		"saveReport": "Guardar Informe",
+		"publishReport": "Publicar Informe",
+		"submitForReview": "Enviar para Revisión",
 		"placeholders": {
 			"referenceNumber": "Ej: INF-2024-001",
 			"title": "Título descriptivo del informe",
-			"chatInput": "Describe qué informe justificativo necesitas..."
+			"chatInput": "Describe qué informe justificativo necesitas...",
+			"department": "Ej: Departamento de IT",
+			"tags": "Escribe etiquetas separadas por comas"
+		},
+		"categories": {
+			"procurement": "Adquisición",
+			"infrastructure": "Infraestructura",
+			"services": "Servicios",
+			"personnel": "Personal",
+			"maintenance": "Mantenimiento",
+			"technology": "Tecnología",
+			"other": "Otros"
+		},
+		"priorities": {
+			"low": "Baja",
+			"medium": "Media",
+			"high": "Alta",
+			"urgent": "Urgente"
 		}
 	},
 	"chat": {
@@ -43,7 +135,9 @@
 			"Quiero contratar un servicio de limpieza para el edificio",
 			"Necesito hacer obras de mejora en las instalaciones"
 		],
-		"generating": "Generando informe..."
+		"generating": "Generando informe...",
+		"regenerate": "Regenerar respuesta",
+		"useResponse": "Usar esta respuesta"
 	},
 	"search": {
 		"title": "Buscar Informes",
@@ -51,15 +145,63 @@
 		"placeholder": "Buscar por número de referencia o título...",
 		"noResults": "No se encontraron informes que coincidan con tu búsqueda",
 		"noReports": "No hay informes guardados",
-		"createdOn": "Creado el"
+		"createdOn": "Creado el",
+		"filters": {
+			"title": "Filtros",
+			"status": "Estado",
+			"category": "Categoría",
+			"priority": "Prioridad",
+			"dateRange": "Rango de Fechas",
+			"author": "Autor",
+			"clear": "Limpiar Filtros"
+		}
+	},
+	"templates": {
+		"title": "Plantillas de Informes",
+		"description": "Gestiona las plantillas para diferentes tipos de informes",
+		"new": "Nueva Plantilla",
+		"edit": "Editar Plantilla",
+		"delete": "Eliminar Plantilla",
+		"fields": {
+			"name": "Nombre de la Plantilla",
+			"description": "Descripción",
+			"category": "Categoría",
+			"structure": "Estructura"
+		}
+	},
+	"organization": {
+		"name": "Nombre de la Organización",
+		"code": "Código",
+		"type": "Tipo",
+		"address": "Dirección",
+		"phone": "Teléfono",
+		"email": "Email",
+		"website": "Sitio Web"
 	},
 	"status": {
 		"draft": "borrador",
-		"finished": "finalizado"
+		"in_review": "en revisión",
+		"approved": "aprobado",
+		"rejected": "rechazado",
+		"published": "publicado",
+		"archived": "archivado"
 	},
 	"validation": {
+		"required": "Este campo es obligatorio",
+		"email": "Introduce un email válido",
+		"minLength": "Mínimo {count} caracteres",
+		"maxLength": "Máximo {count} caracteres",
 		"completeFields": "Por favor, completa todos los campos obligatorios",
 		"reportSaved": "Informe guardado correctamente",
-		"reportNotFound": "Informe no encontrado"
+		"reportNotFound": "Informe no encontrado",
+		"reportDeleted": "Informe eliminado correctamente",
+		"confirmDelete": "¿Estás seguro de que quieres eliminar este informe?"
+	},
+	"notifications": {
+		"reportCreated": "Informe creado exitosamente",
+		"reportUpdated": "Informe actualizado exitosamente",
+		"reportDeleted": "Informe eliminado exitosamente",
+		"profileUpdated": "Perfil actualizado exitosamente",
+		"error": "Ha ocurrido un error. Inténtalo de nuevo."
 	}
 }
